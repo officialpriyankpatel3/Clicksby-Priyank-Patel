@@ -59,7 +59,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;bac
 .wrap{position:relative;z-index:1}
 .hero{isolation:isolate;min-height:205px;background:linear-gradient(115deg,rgba(37,31,21,.98),rgba(19,20,24,.96) 58%,rgba(12,13,16,.98));}
 .hero:before{content:"";position:absolute;width:200px;height:200px;right:-35px;bottom:-86px;border:1px solid rgba(226,196,129,.35);border-radius:50%;box-shadow:0 0 0 12px rgba(226,196,129,.035),0 0 0 27px rgba(226,196,129,.03),inset 0 0 35px rgba(226,196,129,.06);animation:slowSpin 24s linear infinite;z-index:-1}
-.hero:after{content:"✳";position:absolute;right:28px;top:34px;font-size:88px;line-height:1;color:rgba(218,188,125,.12);text-shadow:0 0 30px rgba(218,188,125,.12);animation:floatMark 7s ease-in-out infinite}
+.hero:after{content:none!important;display:none!important}
 .hero h2{position:relative;z-index:1;text-shadow:0 3px 22px #0008}.hero p,.hero .eyebrow,.hero-actions{position:relative;z-index:2}
 .logo{position:relative;overflow:hidden;box-shadow:0 0 0 4px rgba(202,169,106,.035),0 0 28px rgba(202,169,106,.12);animation:logoBreath 4s ease-in-out infinite}
 .logo:after{content:"";position:absolute;inset:-60%;background:linear-gradient(110deg,transparent 42%,rgba(255,235,180,.42) 50%,transparent 58%);transform:translateX(-100%);animation:logoSweep 5s ease-in-out infinite}
