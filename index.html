@@ -87,6 +87,44 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;bac
 .date-alert .alert-date{font-size:12px;letter-spacing:.12em;color:#d8bd82;text-transform:uppercase}
 @media(prefers-reduced-motion:reduce){.upcoming-pulse,.countdown-pill,.date-alert .alert-icon{animation:none!important}}
 
+
+/* PRO v8 — calmer luxury, cleaner mobile layout, clearer next-shoot focus */
+:root{--gold:#cfb276;--gold2:#f0ddb0;--panel:#121419;--line:#292c34}
+.wrap{max-width:720px;padding:16px 16px calc(105px + env(safe-area-inset-bottom))}
+.top{padding-bottom:18px}
+.hero{padding:25px 22px 22px;border-radius:25px;margin-bottom:16px}
+.hero h2{font-size:clamp(26px,6.4vw,32px);line-height:1.12;max-width:360px}
+.hero p{font-size:13px;max-width:370px}
+.hero-actions{gap:10px;flex-wrap:wrap}
+.btn{min-height:44px;padding:12px 15px;border-radius:13px;font-size:13px}
+.stats.pro-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:15px 0 17px}
+.stat{min-height:104px;padding:15px 14px;border-radius:17px}
+.stat span{font-size:10px;letter-spacing:.04em;line-height:1.5;display:block}
+.stat strong{font-size:22px;margin-top:9px;overflow-wrap:anywhere}
+.stat em{display:block;font-size:11px;line-height:1.5;margin-top:4px}
+.tabs{position:sticky;top:0;z-index:50;gap:6px;margin:0 -2px 15px;padding:8px 2px 10px;background:rgba(11,12,15,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(207,178,118,.10);scroll-snap-type:x proximity}
+.tab{padding:11px 14px;font-size:12px;scroll-snap-align:start}
+.section-head{margin:12px 2px 13px}
+.section-head h3{font-size:18px;letter-spacing:-.02em}
+.section-head p{font-size:12px;line-height:1.5}
+.card{border-radius:18px;padding:16px;margin-bottom:12px}
+.booking-title h4{font-size:16px}
+.detail{padding:11px;border:1px solid rgba(255,255,255,.025)}
+.detail b{line-height:1.5;overflow-wrap:anywhere}
+.upcoming-pulse{border-color:rgba(240,221,176,.78)!important;box-shadow:0 0 0 1px rgba(240,221,176,.12),0 8px 30px rgba(200,169,106,.10);animation:upcomingPop 2.2s ease-in-out infinite}
+.countdown-pill{padding:7px 10px;font-size:11px;font-weight:650;box-shadow:0 0 18px rgba(200,169,106,.10)}
+.date-alert{padding:27px 22px;border-radius:26px;box-shadow:0 24px 90px #000c,0 0 45px rgba(200,169,106,.12)}
+.date-alert .alert-icon{width:58px;height:58px;margin:0 auto 16px;border:1px solid rgba(240,221,176,.45);border-radius:20px;display:grid;place-items:center;background:linear-gradient(145deg,#342a18,#15151a);color:#f0ddb0;font-size:27px;box-shadow:0 0 26px rgba(200,169,106,.12)}
+.date-alert .alert-date{font-size:11px;font-weight:700;letter-spacing:.18em}
+.date-alert h3{font-size:23px;line-height:1.2;margin:10px 0;color:#f7e8c4}
+.date-alert p{font-size:14px;line-height:1.65}
+.date-alert .row{gap:10px}
+.date-alert .btn{flex:1}
+@keyframes upcomingPop{0%,100%{transform:scale(1);box-shadow:0 0 0 1px rgba(240,221,176,.10),0 7px 24px rgba(200,169,106,.08)}50%{transform:scale(1.006);box-shadow:0 0 0 2px rgba(240,221,176,.22),0 10px 32px rgba(200,169,106,.20)}}
+@media(min-width:560px){.stats.pro-stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:380px){.wrap{padding-left:12px;padding-right:12px}.hero{padding:21px 17px}.hero-actions .btn{flex:1}.stat{padding:13px 11px}.stat strong{font-size:20px}.detailgrid{gap:7px}.tab{padding:10px 12px}}
+@media(prefers-reduced-motion:reduce){.upcoming-pulse{transform:none!important}}
+
 </style>
 </head>
 <body>
@@ -166,7 +204,45 @@ function showToast(message){
  clearTimeout(window.__toastTimer);window.__toastTimer=setTimeout(()=>el.classList.remove('show'),2300);
 }
 
-function makeInvoice(id){let b=data.bookings.find(x=>x.id===id);if(!b)return;let price=Number(b.packagePrice||0),advance=Number(b.advancePaid||0),due=Math.max(0,price-advance);let w=window.open('','_blank');if(!w){alert('Please allow pop-ups for invoice preview, then try again.');return}w.document.write(`<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Clicks by PP · Quote</title><style>body{font-family:Arial,sans-serif;color:#222;max-width:760px;margin:30px auto;padding:25px}header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #b99a5b;padding-bottom:18px}h1{font-size:24px;margin:0}small{color:#777;letter-spacing:2px}h2{margin-top:35px}table{width:100%;border-collapse:collapse;margin-top:22px}td,th{text-align:left;padding:13px;border-bottom:1px solid #ddd}th{background:#f5f1e8}.total{font-size:20px;font-weight:bold;text-align:right;margin-top:20px}.note{margin-top:50px;color:#777;font-size:12px}@media print{button{display:none}body{margin:0}}</style></head><body><header><div><h1>CLICKS BY PP</h1><small>PHOTOGRAPHY · VISUAL STORIES</small></div><div><b>QUOTATION / INVOICE</b><br><small>${new Date().toLocaleDateString('en-IN')}</small></div></header><h2>${esc(b.client)}</h2><p>${esc(b.shootType||'Photography')} · ${esc(b.location||'Location not specified')}</p><p><b>Event date:</b> ${esc(fmtDate(b.startDate))}${b.endDate&&b.endDate!==b.startDate?' – '+esc(fmtDate(b.endDate)):''}</p><table><tr><th>Description</th><th>Amount</th></tr><tr><td>${esc(b.shootType||'Photography package')}</td><td>${inr(price)}</td></tr><tr><td>Advance received</td><td>− ${inr(advance)}</td></tr><tr><td>Balance payable</td><td>${inr(due)}</td></tr></table><div class="total">Package total: ${inr(price)}</div><p class="note">Thank you for choosing Clicks by PP. This document was generated from your Studio Desk records. Please print or save as PDF.</p><button onclick="window.print()">Print / Save PDF</button></body></html>`);w.document.close()}
+function makeInvoice(id){let b=data.bookings.find(x=>x.id===id);if(!b)return;let price=Number(b.packagePrice||0),advance=Number(b.advancePaid||0),due=Math.max(0,price-advance);let w=window.open('','_blank');if(!w){alert('Please allow pop-ups for invoice preview, then try again.');return}w.document.write(`<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Clicks by PP · Quote</title><style>body{font-family:Arial,sans-serif;color:#222;max-width:760px;margin:30px auto;padding:25px}header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #b99a5b;padding-bottom:18px}h1{font-size:24px;margin:0}small{color:#777;letter-spacing:2px}h2{margin-top:35px}table{width:100%;border-collapse:collapse;margin-top:22px}td,th{text-align:left;padding:13px;border-bottom:1px solid #ddd}th{background:#f5f1e8}.total{font-size:20px;font-weight:bold;text-align:right;margin-top:20px}.note{margin-top:50px;color:#777;font-size:12px}@media print{button{display:none}body{margin:0}}
+/* PRO v8 — calmer luxury, cleaner mobile layout, clearer next-shoot focus */
+:root{--gold:#cfb276;--gold2:#f0ddb0;--panel:#121419;--line:#292c34}
+.wrap{max-width:720px;padding:16px 16px calc(105px + env(safe-area-inset-bottom))}
+.top{padding-bottom:18px}
+.hero{padding:25px 22px 22px;border-radius:25px;margin-bottom:16px}
+.hero h2{font-size:clamp(26px,6.4vw,32px);line-height:1.12;max-width:360px}
+.hero p{font-size:13px;max-width:370px}
+.hero-actions{gap:10px;flex-wrap:wrap}
+.btn{min-height:44px;padding:12px 15px;border-radius:13px;font-size:13px}
+.stats.pro-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:15px 0 17px}
+.stat{min-height:104px;padding:15px 14px;border-radius:17px}
+.stat span{font-size:10px;letter-spacing:.04em;line-height:1.5;display:block}
+.stat strong{font-size:22px;margin-top:9px;overflow-wrap:anywhere}
+.stat em{display:block;font-size:11px;line-height:1.5;margin-top:4px}
+.tabs{position:sticky;top:0;z-index:50;gap:6px;margin:0 -2px 15px;padding:8px 2px 10px;background:rgba(11,12,15,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(207,178,118,.10);scroll-snap-type:x proximity}
+.tab{padding:11px 14px;font-size:12px;scroll-snap-align:start}
+.section-head{margin:12px 2px 13px}
+.section-head h3{font-size:18px;letter-spacing:-.02em}
+.section-head p{font-size:12px;line-height:1.5}
+.card{border-radius:18px;padding:16px;margin-bottom:12px}
+.booking-title h4{font-size:16px}
+.detail{padding:11px;border:1px solid rgba(255,255,255,.025)}
+.detail b{line-height:1.5;overflow-wrap:anywhere}
+.upcoming-pulse{border-color:rgba(240,221,176,.78)!important;box-shadow:0 0 0 1px rgba(240,221,176,.12),0 8px 30px rgba(200,169,106,.10);animation:upcomingPop 2.2s ease-in-out infinite}
+.countdown-pill{padding:7px 10px;font-size:11px;font-weight:650;box-shadow:0 0 18px rgba(200,169,106,.10)}
+.date-alert{padding:27px 22px;border-radius:26px;box-shadow:0 24px 90px #000c,0 0 45px rgba(200,169,106,.12)}
+.date-alert .alert-icon{width:58px;height:58px;margin:0 auto 16px;border:1px solid rgba(240,221,176,.45);border-radius:20px;display:grid;place-items:center;background:linear-gradient(145deg,#342a18,#15151a);color:#f0ddb0;font-size:27px;box-shadow:0 0 26px rgba(200,169,106,.12)}
+.date-alert .alert-date{font-size:11px;font-weight:700;letter-spacing:.18em}
+.date-alert h3{font-size:23px;line-height:1.2;margin:10px 0;color:#f7e8c4}
+.date-alert p{font-size:14px;line-height:1.65}
+.date-alert .row{gap:10px}
+.date-alert .btn{flex:1}
+@keyframes upcomingPop{0%,100%{transform:scale(1);box-shadow:0 0 0 1px rgba(240,221,176,.10),0 7px 24px rgba(200,169,106,.08)}50%{transform:scale(1.006);box-shadow:0 0 0 2px rgba(240,221,176,.22),0 10px 32px rgba(200,169,106,.20)}}
+@media(min-width:560px){.stats.pro-stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:380px){.wrap{padding-left:12px;padding-right:12px}.hero{padding:21px 17px}.hero-actions .btn{flex:1}.stat{padding:13px 11px}.stat strong{font-size:20px}.detailgrid{gap:7px}.tab{padding:10px 12px}}
+@media(prefers-reduced-motion:reduce){.upcoming-pulse{transform:none!important}}
+
+</style></head><body><header><div><h1>CLICKS BY PP</h1><small>PHOTOGRAPHY · VISUAL STORIES</small></div><div><b>QUOTATION / INVOICE</b><br><small>${new Date().toLocaleDateString('en-IN')}</small></div></header><h2>${esc(b.client)}</h2><p>${esc(b.shootType||'Photography')} · ${esc(b.location||'Location not specified')}</p><p><b>Event date:</b> ${esc(fmtDate(b.startDate))}${b.endDate&&b.endDate!==b.startDate?' – '+esc(fmtDate(b.endDate)):''}</p><table><tr><th>Description</th><th>Amount</th></tr><tr><td>${esc(b.shootType||'Photography package')}</td><td>${inr(price)}</td></tr><tr><td>Advance received</td><td>− ${inr(advance)}</td></tr><tr><td>Balance payable</td><td>${inr(due)}</td></tr></table><div class="total">Package total: ${inr(price)}</div><p class="note">Thank you for choosing Clicks by PP. This document was generated from your Studio Desk records. Please print or save as PDF.</p><button onclick="window.print()">Print / Save PDF</button></body></html>`);w.document.close()}
 function showUpcomingAlert(){let today=todayISO();let next=data.bookings.filter(b=>b.startDate>=today&&b.status!=='Completed').sort((a,b)=>a.startDate.localeCompare(b.startDate))[0];if(!next)return;let n=daysUntil(next.startDate);if(n<0||n>3)return;let stamp='clicksbypp_date_alert_'+next.id+'_'+today;if(sessionStorage.getItem(stamp))return;$('dateAlertLabel').textContent=n===0?'SHOOT DAY':n===1?'TOMORROW':'IN '+n+' DAYS';$('dateAlertTitle').textContent=next.client+' is coming up';$('dateAlertBody').textContent=(next.shootType||'Shoot')+' · '+fmtDate(next.startDate)+(next.location?' · '+next.location:'')+'. Keep your gear and schedule ready.';window.__alertBookingId=next.id;$('dateAlert').classList.add('show');sessionStorage.setItem(stamp,'1')}
 function dismissDateAlert(view){$('dateAlert').classList.remove('show');if(view&&window.__alertBookingId){openTab('records');setTimeout(()=>{let card=[...document.querySelectorAll('#allBookings .card')].find(el=>el.textContent.includes(data.bookings.find(b=>b.id===window.__alertBookingId)?.client||'###'));card?.scrollIntoView({behavior:'smooth',block:'center'})},250)}}
 function overlaps(a,b){let ae=a.endDate||a.startDate,be=b.endDate||b.startDate;return a.startDate<=be&&b.startDate<=ae}
